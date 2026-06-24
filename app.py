@@ -160,3 +160,5 @@ if __name__ == '__main__':
     print("\n URL Shortener is running!")
     print(f" Open http://localhost:5000 in your browser\n")
     app.run(debug=True, port=5000)
+else:
+    init_db()
