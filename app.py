@@ -11,17 +11,18 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
-# Configuration
-# MySQL Database Configuration - UPDATE THESE VALUES!
+# Configuration - Uses environment variables with defaults
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',           # Your MySQL username
-    'password': '12345',           # Your MySQL password
-    'database': 'url_shortener',  # Database name
+    'host': os.environ.get('DB_HOST', 'localhost'),
+    'user': os.environ.get('DB_USER', 'root'),
+    'password': os.environ.get('DB_PASSWORD', '12345'),
+    'database': os.environ.get('DB_NAME', 'url_shortener'),
     'charset': 'utf8mb4',
     'cursorclass': pymysql.cursors.DictCursor
 }
-BASE_URL = 'http://localhost:5000/'
+BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000/')
+if not BASE_URL.endswith('/'):
+    BASE_URL += '/'
 SHORT_CODE_LENGTH = 4
 
 def get_db():
